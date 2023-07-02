@@ -1,10 +1,6 @@
 <?php
-declare(strict_types=1); // 「型を厳格にする」ための設定 int型であること
+declare(strict_types=1);
 namespace App\Http\Controllers;
-//名前空間の指定
-// オートローディング（オートロード）によりrequire_once()が自動で呼び出され
-// 別のファイルに保存されているPHPスクリプトを取り込まれる
-// require_once(ファイル名)の記載はいらない
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TaskRegisterPostRequest;
@@ -13,6 +9,32 @@ use App\Models\Task as TaskModel;
 
 class TaskController extends Controller
 {
+    /**
+     * タスク一覧ページ を表示する
+     *
+     * @return \Illuminate\View\View
+     */
+    public function list()
+    {
+        // 一覧の取得
+        $list = TaskModel::where('user_id', Auth::id())
+                         ->orderBy('priority', 'DESC')
+                         ->orderBy('period')
+                         ->orderBy('created_at')
+                         ->get();
+/*
+$sql = TaskModel::where('user_id', Auth::id())
+                 ->orderBy('priority', 'DESC')
+                 ->orderBy('period')
+                 ->orderBy('created_at')
+                 ->toSql();
+//echo "<pre>\n"; var_dump($sql, $list); exit;
+var_dump($sql);
+*/
+        //
+        return view('task.list', ['list' => $list]);
+    }
+
     /**
      * タスクの新規登録
      */
@@ -43,15 +65,4 @@ class TaskController extends Controller
         //
         return redirect('/task/list');
     }
-
-    /**
-     * タスク一覧ページ を表示する
-     *
-     * @return \Illuminate\View\View
-     */
-    public function list()
-    {
-        return view('task.list');
-    }
-
 }
