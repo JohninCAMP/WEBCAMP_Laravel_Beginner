@@ -42,6 +42,9 @@ class AuthController extends Controller
         //
         $request->session()->regenerate();
         return redirect()->intended('/admin/top');
+        // ★デバッグ用のコードを追加
+        /*echo "hello";
+        exit;*/
     }
 
     /**
@@ -50,9 +53,9 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::guard('admin')->logout();
         $request->session()->regenerateToken();  // CSRFトークンの再生成
         $request->session()->regenerate();  // セッションIDの再生成
-        return redirect(route('front.index'));
+        return redirect(route('admin.index'));
     }
 }
