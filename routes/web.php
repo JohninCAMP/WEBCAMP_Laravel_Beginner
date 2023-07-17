@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 // Chapter15 v1.1.0「完了タスク一覧追加」
 use App\Http\Controllers\CompletedTaskController;
+// Chapter15 v1.2.0「会員登録(簡易)追加」
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +27,13 @@ use App\Http\Controllers\CompletedTaskController;
 // タスク管理システム
 Route::get('/', [AuthController::class, 'index'])->name('front.index');
 Route::post('/login', [AuthController::class, 'login']);
+
+// Chapter15 v1.2.0「会員登録(簡易)追加」
+Route::prefix('/user')->group(function () {
+    Route::get('/register', [UserController::class, 'index'])->name('user.index');
+    Route::post('/register', [UserController::class, 'register']);
+});
+
 // 認可処理
 Route::middleware(['auth'])->group(function () {
     Route::prefix('/task')->group(function () {

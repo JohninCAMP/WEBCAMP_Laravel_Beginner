@@ -1,7 +1,8 @@
+{{-- Chapter15 v1.1.0「完了タスク一覧追加」 --}}
 @extends('layout')
 
 {{-- タイトル --}}
-@section('title')(詳細画面)@endsection
+@section('title')(完了タスク一覧画面)@endsection
 
 {{-- メインコンテンツ --}}
 @section('contets')
