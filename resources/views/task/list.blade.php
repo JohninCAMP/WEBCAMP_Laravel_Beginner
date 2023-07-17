@@ -38,6 +38,9 @@
 
         <h1>タスクの一覧</h1>
         <a href="/task/csv/download">CSVダウンロード</a><br>
+        <!-- Chapter15 v1.1.0「完了タスク一覧追加」 -->
+        <a href="/completed_tasks/list">完了タスク一覧</a><br>
+
         <table border="1">
         <tr>
             <th>タスク名

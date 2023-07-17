@@ -8,6 +8,8 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+// Chapter15 v1.1.0「完了タスク一覧追加」
+use App\Http\Controllers\CompletedTaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/complete/{task_id}', [TaskController::class, 'complete'])->whereNumber('task_id')->name('complete');
         Route::get('/csv/download', [TaskController::class, 'csvDownload']);
     });
+
+    // Chapter15 v1.1.0「完了タスク一覧追加」
+    Route::prefix('/completed_tasks')->group(function () {
+        Route::get('/list', [CompletedTaskController::class, 'list']);
+    });
+
     //
     Route::get('/logout', [AuthController::class, 'logout']);
 });
